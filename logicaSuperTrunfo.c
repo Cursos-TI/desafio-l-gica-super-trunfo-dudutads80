@@ -17,6 +17,7 @@ int main() {
     int pontosTuristicos2;
     float populacao2, area2, pib2, densidade2;
     
+    int opcao; // menu
     
     // Cadastro das Cartas:
     // Implemente a lógica para solicitar ao usuário que insira os dados das cidades
@@ -71,28 +72,94 @@ int main() {
 
            printf("\n=== Resultado da Comparação ===\n");
            
-// Comparação de Cartas:
+// === Menu Interativo ===
+    printf("\n=== MENU DE COMPARAÇÃO ===\n");
+    printf("1 - Comparar População\n");
+    printf("2 - Comparar Área\n");
+    printf("3 - Comparar PIB\n");
+    printf("4 - Comparar Pontos Turísticos\n");
+    printf("5 - Comparar Densidade Populacional\n");
+    printf("6 - Comparação Aninhada (PIB -> População -> Pontos Turísticos)\n");
+    printf("Escolha uma opção: ");
+    scanf("%d", &opcao);
 
-    if (pib1 > pib2) {
-        printf("Carta vencedora: %s (maior PIB)\n", nomeCidade1);
-    } else if (pib2 > pib1) {
-        printf("Carta vencedora: %s (maior PIB)\n", nomeCidade2);
-    } else {
-        printf("Empate! As duas cidades têm o mesmo PIB.\n");
+    printf("\n=== Resultado da Comparação ===\n");
+
+    // === Estrutura switch para o menu ===
+    switch (opcao) {
+        case 1:
+            if (populacao1 > populacao2)
+                printf("%s venceu (maior população)\n", nomeCidade1);
+            else if (populacao2 > populacao1)
+                printf("%s venceu (maior população)\n", nomeCidade2);
+            else
+                printf("Empate em população!\n");
+           break;
+
+        case 2:
+            if (area1 > area2)
+                printf("%s venceu (maior área)\n", nomeCidade1);
+            else if (area2 > area1)
+                printf("%s venceu (maior área)\n", nomeCidade2);
+            else
+                printf("Empate em área!\n");
+           break;
+
+        case 3:
+            if (pib1 > pib2)
+                printf("%s venceu (maior PIB)\n", nomeCidade1);
+            else if (pib2 > pib1)
+                printf("%s venceu (maior PIB)\n", nomeCidade2);
+            else
+                printf("Empate em PIB!\n");
+           break;
+
+        case 4:
+            if (pontosTuristicos1 > pontosTuristicos2)
+                printf("%s venceu (mais pontos turísticos)\n", nomeCidade1);
+            else if (pontosTuristicos2 > pontosTuristicos1)
+                printf("%s venceu (mais pontos turísticos)\n", nomeCidade2);
+            else
+                printf("Empate em pontos turísticos!\n");
+            break;
+
+        case 5:
+            if (densidade1 < densidade2)
+                printf("%s venceu (menor densidade populacional)\n", nomeCidade1);
+            else if (densidade2 < densidade1)
+                printf("%s venceu (menor densidade populacional)\n", nomeCidade2);
+            else
+                printf("Empate em densidade populacional!\n");
+            break;
+
+        case 6:
+            // Comparação aninhada (se o primeiro atributo empatar, passa para o próximo)
+            if (pib1 > pib2) {
+                printf("%s venceu (maior PIB)\n", nomeCidade1);
+            } else if (pib2 > pib1) {
+                printf("%s venceu (maior PIB)\n", nomeCidade2);
+            } else {
+                // empate em PIB -> comparar população
+                if (populacao1 > populacao2) {
+                    printf("%s venceu (PIB igual, maior população)\n", nomeCidade1);
+                } else if (populacao2 > populacao1) {
+                    printf("%s venceu (PIB igual, maior população)\n", nomeCidade2);
+                } else {
+                    // empate em população -> comparar pontos turísticos
+                    if (pontosTuristicos1 > pontosTuristicos2)
+                        printf("%s venceu (PIB e população iguais, mais pontos turísticos)\n", nomeCidade1);
+                    else if (pontosTuristicos2 > pontosTuristicos1)
+                        printf("%s venceu (PIB e população iguais, mais pontos turísticos)\n", nomeCidade2);
+                    else
+                        printf("Empate total! PIB, população e pontos turísticos iguais.\n");
+                }
+            }
+            break;
+
+        default:
+            printf("Opção inválida!\n");
     }
-    
 
-   
-    // Exemplo adicional: densidade populacional (menor vence)
-    printf("\n=== Comparação extra: Densidade populacional ===\n");
-
-    if (densidade1 < densidade2) {
-        printf("Carta vencedora: %s (menor densidade populacional)\n", nomeCidade1);
-    } else if (densidade2 < densidade1) {
-        printf("Carta vencedora: %s (menor densidade populacional)\n", nomeCidade2);
-    } else {
-        printf("Empate! Densidades iguais.\n");
-    }
 
     
     return 0;
